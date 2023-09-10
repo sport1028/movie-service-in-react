@@ -9,33 +9,21 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
         const root = document.querySelector("#root");
-        //기존의 function 방식 작성후 리턴 
-        function Title() {
-            return (
-                <h3 onMouseEnter={ () => console.log("mouse enter!!!")}>
-                    Hello I'm a H3
-                </h3>
-            );
-        };
-        // 애로우 함수에 작성 
-        // {} 사용시 함수안의 내용들
-        // () 사용시 바로 리턴 하는 것들 적용
-        const Button = () => (
-            <button 
-                onClick={ () => console.log("I'm Clicked!!!") } 
-                style={{
-                    backgroundColor:"red"
-                }}>
-                Click me!
-            </button>
-        );
+        let counter = 0;
+        const countUp = () => {
+            counter = counter + 1;
+            render();
+        }
+        const render = () => {
+            ReactDOM.render(<Container/>, root);
+        }
         const Container = () => (
             <div>
-                <Title/>
-                <Button/>
+                <h3>Total Count : {counter}</h3>
+                <button onClick={countUp}>Count up!</button>
             </div>
         );
-
-        ReactDOM.render(<Container/>, root);
+        render();
+        
     </script>
 </html>
