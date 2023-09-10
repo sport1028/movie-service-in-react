@@ -9,21 +9,20 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
         const root = document.querySelector("#root");
-        let counter = 0;
-        const countUp = () => {
-            counter = counter + 1;
-            render();
+        const App = () => {
+            const data = React.useState(0);
+            const [count, setCount] = data;
+            const countUp = () => {
+                setCount(count + 1);
+            }
+            return (
+                <div>
+                    <h3>Total Count : {count}</h3>
+                    <button onClick={countUp}>Count up!</button>
+                </div>
+            );
         }
-        const render = () => {
-            ReactDOM.render(<Container/>, root);
-        }
-        const Container = () => (
-            <div>
-                <h3>Total Count : {counter}</h3>
-                <button onClick={countUp}>Count up!</button>
-            </div>
-        );
-        render();
+        ReactDOM.render(<App/>, root);
         
     </script>
 </html>
