@@ -13,7 +13,9 @@
             const data = React.useState(0);
             const [count, setCount] = data;
             const countUp = () => {
-                setCount(count + 1);
+                // setCount(count + 1); 
+                // count의 값이 중간에 바뀔수있기 때문에 현재의 값을 기준으로 +1을 시켜주고싶은 경우등등은 아래의 경우가 올바른 소스이다.
+                setCount( (current) => current + 1 );
             }
             return (
                 <div>
