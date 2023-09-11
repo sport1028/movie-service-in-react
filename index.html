@@ -4,26 +4,35 @@
     <body>
         <div id="root"></div>
     </body>
-    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
-        const root = document.querySelector("#root");
         const App = () => {
-            const data = React.useState(0);
-            const [count, setCount] = data;
-            const countUp = () => {
-                // setCount(count + 1); 
-                // count의 값이 중간에 바뀔수있기 때문에 현재의 값을 기준으로 +1을 시켜주고싶은 경우등등은 아래의 경우가 올바른 소스이다.
-                setCount( (current) => current + 1 );
-            }
+            const [minutes, setMinutes] = React.useState(0);
+            
+            const changeMinutes = (event) => {
+                setMinutes( event.target.value );
+            };
+
+            const reset = () => setMinutes( 0 );
+
             return (
                 <div>
-                    <h3>Total Count : {count}</h3>
-                    <button onClick={countUp}>Count up!</button>
+                    <h1>Super Converter</h1>
+                    <div>
+                        <label htmlFor="Minutes">Minutes</label>
+                        <input id="Minutes" placeholder="Minutes" onChange={changeMinutes} value={minutes} type="number"/>
+                    </div>
+                    <div>
+                        <label htmlFor="hours">Hours</label>
+                        <input id="hours" placeholder="Hours" type="number" value={ Math.round( minutes / 60 ) } disabled/>
+                    </div>
+                    <button onClick={reset}>Reset</button>
                 </div>
             );
         }
+        const root = document.querySelector("#root");
         ReactDOM.render(<App/>, root);
         
     </script>
