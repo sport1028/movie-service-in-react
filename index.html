@@ -8,29 +8,30 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
     <script type="text/babel">
-        const Btn = ({title, change}) => {
-            console.log(title + "rendered!!!!!!!!!");
+        const Btn = ({title, fontSize = 12}) => {
             return(
-                <button onClick={change} style={{
+                <button style={{
                     backgroundColor:"green",
                     color:"white",
                     padding:20,
                     border:0,
                     borderRadius:10,
-                    margin:20
+                    margin:20,
+                    fontSize
                 }}>
                 {title}
                 </button>
             );
         }
-        const MemorizedButton = React.memo(Btn);
+        Btn.propTypes = {
+            text: PropTypes.string,
+            fontSize: PropTypes.number
+        }
         const App = () => {
-            const [titleValue, setTitleValue] = React.useState("save Changes");
-            const changeTitle = () => { setTitleValue("Revert Changes") }
             return (
                 <div>
-                    <MemorizedButton title={titleValue} change={changeTitle}/>
-                    <MemorizedButton title="No Changes"/>
+                    <Btn title="Save Changes" fontSize={18}/>
+                    <Btn title="No Changes"/>
                 </div>
             );
         }
