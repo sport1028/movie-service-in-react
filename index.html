@@ -6,83 +6,31 @@
     <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
     <script type="text/babel">
-        const MinutesToHours = () => {
-            const [amount, setAmount] = React.useState(0);
-            const [flipped, setFlipeed] = React.useState(false);
-            
-            const changeAmounts = (event) => {
-                setAmount( event.target.value );
-            };
-
-            const reset = () => setAmount( 0 );
-            const flip = () => {
-                reset();
-                setFlipeed( ( current ) => !current );
-            };
-
-            return (
-                <div>
-                    <div>
-                        <label htmlFor="Minutes">Minutes</label>
-                        <input id="Minutes" placeholder="Minutes" onChange={ changeAmounts } value={ flipped ? amount * 60 : amount } type="number" disabled={flipped}/>
-                    </div>
-                    <div>
-                        <label htmlFor="hours">Hours</label>
-                        <input id="hours" placeholder="Hours" type="number" value={ flipped ? amount : Math.round( amount / 60 ) } disabled={ !flipped } onChange={ changeAmounts } />
-                    </div>
-                    <button onClick={reset}>Reset</button>
-                    <button onClick={flip}>{flipped ? "Turn Back" : "Flip"}</button>
-                </div>
+        const Btn = ({title, change}) => {
+            console.log(title + "rendered!!!!!!!!!");
+            return(
+                <button onClick={change} style={{
+                    backgroundColor:"green",
+                    color:"white",
+                    padding:20,
+                    border:0,
+                    borderRadius:10,
+                    margin:20
+                }}>
+                {title}
+                </button>
             );
         }
-        const KmtoMiles = () => {
-            const [distance, setDistance] = React.useState(0);
-            const [inverted, setInverted] = React.useState(false);
-
-            const changeValue = (event) => {
-                setDistance(event.target.value)
-            }
-            const pressInvert = (event) => {
-                setInverted( (current) => !current);
-                reset();
-            }
-
-            const reset = (event) => {
-                setDistance(0);
-            }
-            return (
-                <div>
-                    <div>
-                        <label htmlFor="killo">KM</label>
-                        <input type="number" id="killo" onChange={changeValue} value={inverted ? distance * 1.609344 : distance} disabled={inverted}/>
-                    </div>
-                    <div>
-                        <label htmlFor="mile">Miles</label>
-                        <input type="number" id="mile" onChange={changeValue} value={inverted ? distance : distance / 1.609344} disabled={!inverted}/>
-                    </div>
-                    <button onClick={reset}>Reset</button>
-                    <button onClick={pressInvert}>Invert</button>
-                </div>
-            );
-        }
+        const MemorizedButton = React.memo(Btn);
         const App = () => {
-            const [index, setIndex] = React.useState("0");
-            const changeConverter = ( event ) => {
-                setIndex( event.target.value );
-            }
+            const [titleValue, setTitleValue] = React.useState("save Changes");
+            const changeTitle = () => { setTitleValue("Revert Changes") }
             return (
                 <div>
-                    <h1>Super Converter</h1>
-                    <div>
-                        <select onChange={changeConverter} value={index}>
-                            <option value="0">Minutes to Hours</option>
-                            <option value="1">Km to Miles</option>
-                        </select>
-                    </div>
-                    <hr/>
-                    { index === "0" ? <MinutesToHours /> : null }
-                    { index === "1" ? <KmtoMiles /> : null }
+                    <MemorizedButton title={titleValue} change={changeTitle}/>
+                    <MemorizedButton title="No Changes"/>
                 </div>
             );
         }
