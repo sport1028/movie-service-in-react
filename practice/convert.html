@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+</head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+
+        function MninutesToHours (minutes) {
+            let [amount, setAmount] = React.useState(0);
+            let [flipped, setFlipped] = React.useState(false); 
+
+            function onChangeInput(event) {
+                setAmount(event.target.value);
+            }
+            function clear() {
+                setAmount(0);
+            }
+
+            function flip() {
+                clear();
+                setFlipped((currentFlipped) => !currentFlipped);
+            }
+
+            return (
+                <div>
+                    <div>
+                        <label>Minutes</label>
+                        <input type="number" placeholder="Minutes" value={flipped ? amount * 60 : amount} disabled={flipped} onChange={onChangeInput}/>
+                    </div>
+                    <div>
+                        <label>Hours</label>
+                        <input type="number" placeholder="hours" value={flipped ? amount : Math.floor(amount / 60)} disabled={!flipped} onChange={onChangeInput}/>
+                    </div>
+                    <button onClick={clear}>Clear</button>
+                    <button onClick={flip}>Flip</button>
+                </div>
+            )
+        }
+
+        function KmToMiles(){
+            return (<div>Km to Miles </div>);
+        }
+        
+
+        function Container (){
+            
+            const [type, setType] = React.useState(0);
+            function selectType(event) {
+                setType(event.target.value);
+            }
+
+            return (
+                <div>
+                    <h1 style={{color: "red"}}>Super Converter</h1>
+                    <div>
+                        <select onChange={selectType}>
+                            <option value="0">Choose Type</option>
+                            <option value="1">Minutes to Hours</option>
+                            <option value="2">km to Miles</option>
+                        </select>
+                    </div>
+                    <hr/>
+                    {type === "1" && <MninutesToHours/>}
+                    {type === "2" && <KmToMiles/>}
+                </div>  
+            )
+        }
+        
+        ReactDOM.render(<Container/>, document.querySelector("#root"));
+
+    </script>
+</html>

@@ -11,3 +11,4 @@
 3.0 
 	state는 기본적으로 데이터가 저장되는 곳이다.
 	
+npx create-react-app applicationName
