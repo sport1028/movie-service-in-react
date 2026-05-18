@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "/sport1028/movie-service-in-react/static/js/main.abb1091d.js",
-    "index.html": "/sport1028/movie-service-in-react/index.html",
-    "main.abb1091d.js.map": "/sport1028/movie-service-in-react/static/js/main.abb1091d.js.map"
+    "main.js": "/movie-service-in-react/static/js/main.abb1091d.js",
+    "index.html": "/movie-service-in-react/index.html",
+    "main.abb1091d.js.map": "/movie-service-in-react/static/js/main.abb1091d.js.map"
   },
   "entrypoints": [
     "static/js/main.abb1091d.js"
